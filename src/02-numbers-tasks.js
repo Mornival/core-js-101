@@ -149,8 +149,8 @@ function getLastDigit(value) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-function parseNumberFromString(/* value */) {
-  throw new Error('Not implemented');
+function parseNumberFromString(value) {
+  return +value;
 }
 
 /**
@@ -166,8 +166,8 @@ function parseNumberFromString(/* value */) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelepipedDiagonal(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getParallelepipedDiagonal(a, b, c) {
+  return (a ** 2 + b ** 2 + c ** 2) ** (1 / 2);
 }
 
 
@@ -188,8 +188,26 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const k = num.toString();
+  let b = k.substring(0, k.length - pow - 1);
+  for (let i = pow; i >= 0; i -= 1) {
+    if (i === pow) {
+      let s;
+      if (i === 0) {
+        s = (+k[k.length - pow - 1]);
+      } else {
+        s = (+k[k.length - pow - 1]);
+        if (s >= 5) {
+          s += 1;
+        }
+      }
+      b += s;
+    } else {
+      b += 0;
+    }
+  }
+  return b;
 }
 
 /**
@@ -209,8 +227,14 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+function isPrime(n) {
+  if (n === 2 || n === 3 || n === 5 || n === 7) {
+    return true;
+  }
+  if (n % 2 !== 0 && n % 3 !== 0 && n % 5 !== 0 && n % 7 !== 0 && n > 10) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -228,10 +252,13 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  const k = +value;
+  if (+value !== k || value === null) {
+    return def;
+  }
+  return +value;
 }
-
 module.exports = {
   getRectangleArea,
   getCircleCircumference,
